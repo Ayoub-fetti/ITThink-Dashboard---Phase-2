@@ -10,7 +10,7 @@
     <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
         <h2 class="mb-2 text-2xl font-bold text-gray-800">Hello !</h2>
         <p class="mb-6 text-gray-600">Welcome </p>
-        <form>
+        <form id="form2">
             <div class="mb-4">
                 <label class="sr-only" for="username">Username</label>
                 <div class="relative">
@@ -18,33 +18,37 @@
                         <i class="fas fa-fingerprint text-gray-400"></i>
                     </div>
                     <input type="text" id="username" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Username">
+                    <div class="error"></div>
                 </div>
             </div>
             <div class="mb-4">
-                <label class="sr-only" for="email">Email Address</label>
+                <label class="sr-only" for="email2">Email Address</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <i class="fas fa-envelope text-gray-400"></i>
                     </div>
-                    <input type="email" id="email" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Email Address">
+                    <input type="email" id="email2" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Email Address">
+                    <div class="error"></div>
                 </div>
             </div>
             <div class="mb-6">
-                <label class="sr-only" for="password">Password</label>
+                <label class="sr-only" for="password2">Password</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <i class="fas fa-lock text-gray-400"></i>
                     </div>
-                    <input type="password" id="password" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Password">
+                    <input type="password" id="password2" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Password">
+                    <div class="error"></div>
                 </div>
             </div>
             <div class="mb-6">
-                <label class="sr-only" for="confirm_password">confirm Password</label>
+                <label class="sr-only" for="passwordC">Password</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <i class="fas fa-lock text-gray-400"></i>
                     </div>
-                    <input type="password" id="password" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Confirm Password">
+                    <input type="password" id="passwordC" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Confirm password">
+                    <div class="error"></div>
                 </div>
             </div>
             <button type="submit" class="w-full py-2 text-white bg-amber-500 rounded-lg hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">Login</button>
@@ -53,5 +57,6 @@
             <a href="index.html" class="text-sm text-gray-600 hover:underline">You have an account ?</a>
         </div>
     </div>
+    <script src="main.js"></script>
 </body>
 </html>
