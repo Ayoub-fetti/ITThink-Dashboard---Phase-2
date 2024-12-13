@@ -1,2 +1,2 @@
-# ITThink-Dashboard---Phase-2
+# ITThink-Dashboard_2
 Deuxième étape du projet ITThink
