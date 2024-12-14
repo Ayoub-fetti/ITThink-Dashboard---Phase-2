@@ -42,10 +42,13 @@ if (form2) {
 
     form2.addEventListener('submit', e => {
         e.preventDefault();
-        validateInputs2();
+        if (validateInputs2()) {
+            form2.submit();
+        }
     });
 
     const validateInputs2 = () => {
+        let isValid = true;
         const usernameValue = username.value.trim();
         const email2Value = email2.value.trim();
         const password2Value = password2.value.trim();
@@ -53,33 +56,42 @@ if (form2) {
 
         if (usernameValue === '') {
             setError(username, 'Username is required');
+            isValid = false;
         } else {
             setSuccess(username);
         }
      
         if (email2Value === '') {
             setError(email2, 'Email is required');
+            isValid = false;
         } else if (!isValidEmail(email2Value)) {
             setError(email2, 'Provide a valid email address');
+            isValid = false;
         } else {
             setSuccess(email2);
         }
 
         if (password2Value === '') {
             setError(password2, 'Password is required');
+            isValid = false;
         } else if (password2Value.length < 8) {
             setError(password2, 'Password must be at least 8 character');
+            isValid = false;
         } else {
             setSuccess(password2);
         }
 
         if (passwordCValue === '') {
             setError(passwordC, 'Password is required');
+            isValid = false;
         } else if (passwordCValue !== password2Value) {
             setError(passwordC, 'Passwords do not match');
+            isValid = false;
         } else {
             setSuccess(passwordC);
         }
+
+        return isValid;
     };
 }
 
