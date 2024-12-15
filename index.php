@@ -21,12 +21,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
+        var_dump($user);
 
         if ($user && password_verify($password, $user['mot_de_passe'])) {
             $_SESSION['user_id'] = $user['id_utilisateur'];
             $_SESSION['username'] = $user['nom_utilisateur'];
-            header("Location: dashboard.php");
-            exit();
+            $_SESSION['role'] = $user['role'];
+
+            if ($user['role'] === 'admin') {
+                header("Location: admin_dashboard.php");
+                exit();
+            } else {
+                header("Location: dashboard.php");
+                exit();
+            }
         } else {
             $errors['login'] = "Email ou mot de passe incorrect";
         }
@@ -76,13 +84,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="error"></div>
                 </div>
             </div>
-            <button type="submit" id="submit" class="w-full py-2 text-white bg-amber-500 rounded-lg hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">Login</button>
+            <button type="submit" id="submit" class="w-full py-2 text-white bg-amber-500 rounded-lg hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                Login</button>
         </form>
         <div class="mt-4 text-center">
             <a href="signin.php" class="text-sm text-gray-600 hover:underline">Create account ?</a>
         </div>
  
     </div>
-    <script src="main.js"></script>
+    <!-- <script src="main.js"></script> -->
 </body>
 </html>
