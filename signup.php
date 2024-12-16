@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
         <h2 class="mb-2 text-2xl font-bold text-gray-800">Hello !</h2>
         <p class="mb-6 text-gray-600">Welcome </p>
-        <form id="form2" method="POST" action="signin.php">
+        <form id="form2" method="POST" action="signup.php">
             <div class="mb-4">
                 <label class="sr-only" for="username">Username</label>
                 <div class="relative">
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="error2"></div>
                 </div>
             </div>
-            <button type="submit" class="w-full py-2 text-white bg-amber-500 rounded-lg hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">Login</button>
+            <button type="submit" class="w-full py-2 text-white bg-amber-500 rounded-lg hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">Sign Up</button>
         </form>
         <div class="mt-4 text-center">
             <a href="index.php" class="text-sm text-gray-600 hover:underline">You have an account ?</a>

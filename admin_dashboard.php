@@ -18,6 +18,10 @@ $freelancesCount = $stmt->fetch()['total_freelances'];
 $stmt = $pdo->query("SELECT COUNT(*) as total_offres FROM offres");
 $offresCount = $stmt->fetch()['total_offres'];
 
+// recuperer  tous les users de DB
+$stmt = $pdo->query("SELECT id_utilisateur, nom_utilisateur, email, role FROM utilisateurs");
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // check si l'utilisateur est connecte ET est admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo "Accès refusé: ";
@@ -64,10 +68,29 @@ $username = $_SESSION['username'];
     <nav class="flex-1">
      <ul>
       <li class="mb-4">
-       <a class="flex items-center text-gray-400 hover:text-white" href="/index.php">
-        <!-- <i class="fas fa-tachometer-alt mr-2"> -->
+       <a class="flex items-center text-green-500 hover:text-white" href="index.php">
         <i class="fas fa-sign-out-alt mr-2"></i>
         </i>Déconnexion</a></li>
+     </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+        </i>- Utilisateurs</a></li>
+     </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+        </i>- Projets</a></li>
+     </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+        </i>- Freelances</a></li>
+     </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center hover:text-gray-400 text-white" href="#">
+        </i>- Offres</a></li>
      </ul>
     </nav>
    </div>
@@ -150,36 +173,40 @@ $username = $_SESSION['username'];
        <thead>
         <tr class="text-left border-b">
          <th class="pb-2">
-          PRODUCT NAME
+         Id d'utilisateur
          </th>
          <th class="pb-2">
-          STOCK
+         Nom d'utilisateur
          </th>
          <th class="pb-2">
-          STATUS
+          Role
          </th>
          <th class="pb-2">
-          ACTION
+          email
          </th>
         </tr>
        </thead>
        <tbody>
+        <?php foreach($users as $user) : ?>
         <tr class="border-b">
          <td class="py-2">
-          Apple MacBook Pro 13
+          <?php echo htmlspecialchars($user['id_utilisateur']); ?>
          </td>
          <td class="py-2">
-          77
+          <?php echo htmlspecialchars($user['nom_utilisateur']); ?>
          </td>
          <td class="py-2 text-green-500">
-          Active
+          <?php echo htmlspecialchars($user['role']); ?>
          </td>
          <td class="py-2">
-          <a class="text-blue-500 mr-2" href="#">
-           <i class="fas fa-edit">
+          <?php echo htmlspecialchars($user['email']); ?>
+         </td>
+         <td class="py-2">
+            <a class="text-blue-500 mr-2" href="#">
+            <i class="fas fa-edit">
            </i>
            Edit
-          </a>
+           </a>
           <a class="text-red-500" href="#">
            <i class="fas fa-trash">
            </i>
@@ -187,6 +214,7 @@ $username = $_SESSION['username'];
           </a>
          </td>
         </tr>
+        <?php endforeach; ?>
        </tbody>
       </table>
      </div>
@@ -196,4 +224,3 @@ $username = $_SESSION['username'];
   </div>
  </body>
 </html>
-
