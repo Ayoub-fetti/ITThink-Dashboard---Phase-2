@@ -127,6 +127,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="index.php" class="text-sm text-gray-600 hover:underline">You have an account ?</a>
         </div>
     </div>
-    <script src="main.js"></script>
 </body>
 </html>

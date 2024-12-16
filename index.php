@@ -88,10 +88,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Login</button>
         </form>
         <div class="mt-4 text-center">
-            <a href="signin.php" class="text-sm text-gray-600 hover:underline">Create account ?</a>
+            <a href="signup.php" class="text-sm text-gray-600 hover:underline">Create account ?</a>
         </div>
  
     </div>
-    <!-- <script src="main.js"></script> -->
 </body>
 </html>
