@@ -17,7 +17,7 @@ $username = $_SESSION['username'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <script src="/Config_tailwind/tailwind.js"></script>
+    <script src="./Config_tailwind/tailwind.js"></script>
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto p-6">

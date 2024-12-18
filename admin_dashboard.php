@@ -39,7 +39,7 @@ $username = $_SESSION['username'];
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Dashboard</title>
-  <script src="/Config_tailwind/tailwind.js"></script>
+  <script src="./Config_tailwind/tailwind.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 
  </head>
@@ -74,14 +74,25 @@ $username = $_SESSION['username'];
      </ul>
      <ul>
       <li class="mb-4">
-       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="admin_dashboard.php">
         </i>- Utilisateurs</a></li>
      </ul>
      <ul>
       <li class="mb-4">
-       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="projets.php">
         </i>- Projets</a></li>
      </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+        </i>- Categories</a></li>
+     </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+        </i>- Sous-Categories</a></li>
+     </ul>
+     
      <ul>
       <li class="mb-4">
        <a class="flex items-center  hover:text-gray-400 text-white" href="#">
@@ -131,6 +142,7 @@ $username = $_SESSION['username'];
           <?php echo $projetsCount; ?>
          </h2>
          <p class="text-gray-500">
+         <i class="fas fa-project-diagram mr-2"></i>
          Projets
          </p>
         </div>
@@ -202,16 +214,17 @@ $username = $_SESSION['username'];
           <?php echo htmlspecialchars($user['email']); ?>
          </td>
          <td class="py-2">
-            <a class="text-blue-500 mr-2" href="#">
-            <i class="fas fa-edit">
-           </i>
-           Edit
-           </a>
-          <a class="text-red-500" href="#">
-           <i class="fas fa-trash">
-           </i>
-           Delete
-          </a>
+            <a href="modifier_user.php?id=<?php echo $user['id_utilisateur']; ?>" 
+               class="text-blue-500 mr-2 hover:underline">
+                <i class="fas fa-edit"></i>
+                Edit
+            </a>
+            <a href="supprimer_user.php?id=<?php echo $user['id_utilisateur']; ?>" 
+               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"
+               class="text-red-500 hover:underline">
+                <i class="fas fa-trash"></i>
+                Delete
+            </a>
          </td>
         </tr>
         <?php endforeach; ?>
