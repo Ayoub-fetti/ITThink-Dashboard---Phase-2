@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 session_start();
 
 // check si l'utilisateur est admin
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éditer l'utilisateur</title>
-    <script src="./Config_tailwind/tailwind.js"></script>
+    <script src="../Config_tailwind/tailwind.js"></script>
 </head>
 <body class="bg-gray-100 p-6">
     <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <select name="role" class="w-full p-2 border rounded">
                     <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
                     <option value="user" <?php echo $user['role'] === 'user' ? 'selected' : ''; ?>>User</option>
-                    <option value="freelancer" <?php echo $user['role'] === 'freelancer' ? 'selected' : ''; ?>>freelancer</option>
+                    <option value="freelancer" <?php echo $user['role'] === 'freelancer' ? 'selected' : ''; ?>>Freelancer</option>
                 </select>
             </div>
             

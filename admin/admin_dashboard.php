@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 session_start();
 
 // le nombre d'utilisateur 
@@ -24,10 +24,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // check si l'utilisateur est connecte ET est admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    echo "Accès refusé: ";
-    echo "user_id set: " . isset($_SESSION['user_id']);
-    echo "role is admin: " . ($_SESSION['role'] === 'admin');
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -39,7 +36,7 @@ $username = $_SESSION['username'];
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Dashboard</title>
-  <script src="./Config_tailwind/tailwind.js"></script>
+  <script src="../Config_tailwind/tailwind.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 
  </head>
@@ -68,40 +65,46 @@ $username = $_SESSION['username'];
     <nav class="flex-1">
      <ul>
       <li class="mb-4">
-       <a class="flex items-center text-green-500 hover:text-white" href="index.php">
-        <i class="fas fa-sign-out-alt mr-2"></i>
-        </i>Déconnexion</a></li>
-     </ul>
-     <ul>
-      <li class="mb-4">
-       <a class="flex items-center  hover:text-gray-400 text-white" href="admin_dashboard.php">
-        </i>- Utilisateurs</a></li>
-     </ul>
-     <ul>
-      <li class="mb-4">
        <a class="flex items-center  hover:text-gray-400 text-white" href="projets.php">
-        </i>- Projets</a></li>
+       <!-- <i class="fas fa-project-diagram mr-2"> -->
+       <i class="fas fa-cogs mr-2">
+        </i>Projets</a></li>
+     </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="categories.php">
+       <i class="fas fa-list mr-2"></i>
+        </i>Categories</a></li>
      </ul>
      <ul>
       <li class="mb-4">
        <a class="flex items-center  hover:text-gray-400 text-white" href="#">
-        </i>- Categories</a></li>
-     </ul>
-     <ul>
-      <li class="mb-4">
-       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
-        </i>- Sous-Categories</a></li>
+       <!-- <i class="fas fa-list mr-2"></i> -->
+       <!-- <i class="fas fa-ellipsis-h mr-2"></i> -->
+       <i class="fas fa-layer-group mr-2"></i>
+        </i>Sous-Categories</a></li>
      </ul>
      
      <ul>
       <li class="mb-4">
        <a class="flex items-center  hover:text-gray-400 text-white" href="#">
-        </i>- Freelances</a></li>
+       <i class="fas fa-id-card mr-2">
+        </i>Freelances</a></li>
      </ul>
      <ul>
       <li class="mb-4">
        <a class="flex items-center hover:text-gray-400 text-white" href="#">
-        </i>- Offres</a></li>
+       <i class="fas fa-comment-dollar mr-2">
+        </i>Offres</a></li>
+     </ul>
+     <ul>
+      <li class="mb-4">
+       <a class="flex items-center text-red-500 hover:text-white" 
+          href="../logout.php">
+        <i class="fas fa-sign-out-alt mr-2"></i>
+        Déconnexion
+       </a>
+      </li>
      </ul>
     </nav>
    </div>
@@ -213,17 +216,15 @@ $username = $_SESSION['username'];
          <td class="py-2">
           <?php echo htmlspecialchars($user['email']); ?>
          </td>
-         <td class="py-2">
+         <td class="px-4 py-2">
             <a href="modifier_user.php?id=<?php echo $user['id_utilisateur']; ?>" 
-               class="text-blue-500 mr-2 hover:underline">
-                <i class="fas fa-edit"></i>
-                Edit
+               class="text-blue-500 hover:underline mr-2">
+                <i class="fas fa-edit"></i> Modifier
             </a>
             <a href="supprimer_user.php?id=<?php echo $user['id_utilisateur']; ?>" 
                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"
                class="text-red-500 hover:underline">
-                <i class="fas fa-trash"></i>
-                Delete
+                <i class="fas fa-trash"></i> Supprimer
             </a>
          </td>
         </tr>

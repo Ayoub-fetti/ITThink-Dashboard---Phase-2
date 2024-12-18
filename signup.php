@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In Page</title>
-    <script src="./Config_tailwind/tailwind.js"></script>
+    <script src="<?php echo BASE_URL; ?>/Config_tailwind/tailwind.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
         <h2 class="mb-2 text-2xl font-bold text-gray-800">Hello !</h2>
         <p class="mb-6 text-gray-600">Welcome </p>
-        <form id="form2" method="POST" action="signup.php">
+        <form id="form2" method="POST" action="<?php echo BASE_URL; ?>/signup.php">
             <div class="mb-4">
                 <label class="sr-only" for="username">Username</label>
                 <div class="relative">
@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="w-full py-2 text-white bg-amber-500 rounded-lg hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">Sign Up</button>
         </form>
         <div class="mt-4 text-center">
-            <a href="index.php" class="text-sm text-gray-600 hover:underline">You have an account ?</a>
+            <a href="<?php echo BASE_URL; ?>/index.php" class="text-sm text-gray-600 hover:underline">You have an account ?</a>
         </div>
     </div>
 </body>

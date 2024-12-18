@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 session_start();
 
 // checker l'utilisateur est admin
@@ -24,7 +24,7 @@ $username = $_SESSION['username'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Projets</title>
-    <script src="./Config_tailwind/tailwind.js"></script>
+    <script src="../Config_tailwind/tailwind.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-100">
@@ -32,8 +32,6 @@ $username = $_SESSION['username'];
         <!-- Sidebar -->
         <div class="bg-gray-900 text-white w-64 p-4 flex flex-col">
             <div class="flex items-center mb-8">
-                <span class="text-green-500 text-2xl font-bold">Admin</span>
-                <span class="ml-2 text-xl">DASHBOARD</span>
             </div>
             <div class="flex items-center mb-8">
                 <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center">
@@ -50,11 +48,16 @@ $username = $_SESSION['username'];
                     </li>
                     <li class="mb-4">
                         <a href="projets.php" class="flex items-center text-green-500">
-                            <i class="fas fa-project-diagram mr-2"></i>Projets
+                        <i class="fas fa-cogs mr-2"></i>Projets
                         </a>
                     </li>
                     <li class="mb-4">
-                        <a href="index.php" class="flex items-center text-white hover:text-green-500">
+                        <a href="categories.php" class="flex items-center  hover:text-gray-400 text-white">
+                            <i class="fas fa-list mr-2"></i>Catégories
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="../logout.php" class="flex items-center text-red-500 hover:text-white">
                             <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
                         </a>
                     </li>
@@ -103,11 +106,11 @@ $username = $_SESSION['username'];
                                     <td class="px-4 py-2"><?php echo htmlspecialchars($projet['nom_sous_categorie']); ?></td>
                                     <td class="px-4 py-2"><?php echo htmlspecialchars($projet['createur']); ?></td>
                                     <td class="px-4 py-2">
-                                        <a href="edit_projet.php?id=<?php echo $projet['id_projet']; ?>" 
+                                        <a href="modifier_projet.php?id=<?php echo $projet['id_projet']; ?>" 
                                            class="text-blue-500 hover:underline mr-2">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="delete_projet.php?id=<?php echo $projet['id_projet']; ?>" 
+                                        <a href="supprimer_projet.php?id=<?php echo $projet['id_projet']; ?>" 
                                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')"
                                            class="text-red-500 hover:underline">
                                             <i class="fas fa-trash"></i>
