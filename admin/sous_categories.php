@@ -8,55 +8,55 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Recuperer toutes les categories
+// RecupErer toutes les sous-categories avec leurs categories associees
+$stmt = $pdo->query("
+    SELECT sc.*, c.nom_categorie 
+    FROM souscategorie sc 
+    LEFT JOIN categories c ON sc.id_categorie = c.id_categorie
+");
+$souscategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer toutes les catégories pour le formulaire d'ajout
 $stmt = $pdo->query("SELECT * FROM categories");
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Traitement de l'ajout d'une catégorie
+// Traitement de l'ajout d'une sous-catégorie
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom_categorie = trim($_POST['nom_categorie']);
+    $nom_sous_categorie = trim($_POST['nom_sous_categorie']);
+    $id_categorie = $_POST['id_categorie'];
     
-    if (!empty($nom_categorie)) {
+    if (!empty($nom_sous_categorie) && !empty($id_categorie)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO categories (nom_categorie) VALUES (?)");
-            $stmt->execute([$nom_categorie]);
-            header("Location: categories.php?success=1");
+            $stmt = $pdo->prepare("INSERT INTO souscategorie (nom_sous_categorie, id_categorie) VALUES (?, ?)");
+            $stmt->execute([$nom_sous_categorie, $id_categorie]);
+            header("Location: sous_categories.php?success=1");
             exit();
         } catch(PDOException $e) {
             $error = "Erreur lors de l'ajout: " . $e->getMessage();
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Catégories</title>
+    <title>Gestion des Sous-Catégories</title>
     <script src="../Config_tailwind/tailwind.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
-            <div class="bg-gray-900 text-white w-64 p-4 flex flex-col">
+        <div class="bg-gray-900 text-white w-64 p-4 flex flex-col">
+            <!-- ... Copier le même sidebar que dans les autres pages admin ... -->
             <div class="flex items-center mb-8">
-            <span class="text-green-500 text-2xl font-bold">
-             Admin
-            </span>
-            <span class="ml-2 text-xl">
-            DASHBOARD
-            </span>
+                <span class="text-green-500 text-2xl font-bold">Admin</span>
+                <span class="ml-2 text-xl">DASHBOARD</span>
             </div>
-            <div class="flex items-center mb-8">
-                <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center">
-                    <span class="text-2xl">A</span>
-                </div>
-                <span class="ml-4">Admin</span>
-            </div>
+            <nav>
                 <ul>
                     <li class="mb-4">
                         <a href="admin_dashboard.php" class="flex items-center hover:text-gray-400 text-white">
@@ -69,17 +69,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </li>
                     <li class="mb-4">
-                        <a href="categories.php" class="flex items-center text-green-500">
+                        <a href="categories.php" class="flex items-center hover:text-gray-400 text-white">
                             <i class="fas fa-list mr-2"></i>Catégories
                         </a>
                     </li>
                     <li class="mb-4">
-                        <a href="sous_categories.php" class="flex items-center hover:text-gray-400 text-white">
+                        <a href="sous_categories.php" class="flex items-center text-green-500">
                             <i class="fas fa-layer-group mr-2"></i>Sous-Catégories
                         </a>
                     </li>
                     <li class="mb-4">
-                        <a href="../logout.php" class="flex items-center hover:text-white text-red-500">
+                        <a href="../logout.php" class="flex items-center text-red-500 hover:text-white">
                             <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
                         </a>
                     </li>
@@ -91,10 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="flex-1 p-8">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-bold">Gestion des Catégories</h1>
+                    <h1 class="text-2xl font-bold">Gestion des Sous-Catégories</h1>
                     <button onclick="document.getElementById('addModal').classList.remove('hidden')" 
                             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-                        <i class="fas fa-plus mr-2"></i>Ajouter une catégorie
+                        <i class="fas fa-plus mr-2"></i>Ajouter une sous-catégorie
                     </button>
                 </div>
 
@@ -108,11 +108,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div id="addModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
                     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
                         <div class="mt-3 text-center">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">Ajouter une catégorie</h3>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Ajouter une sous-catégorie</h3>
                             <form method="POST" class="mt-4">
-                                <input type="text" name="nom_categorie" 
-                                       class="w-full p-2 border rounded" 
-                                       placeholder="Nom de la catégorie" required>
+                                <input type="text" name="nom_sous_categorie" 
+                                       class="w-full p-2 border rounded mb-4" 
+                                       placeholder="Nom de la sous-catégorie" required>
+                                <select name="id_categorie" class="w-full p-2 border rounded mb-4" required>
+                                    <option value="">Sélectionner une catégorie</option>
+                                    <?php foreach ($categories as $categorie): ?>
+                                        <option value="<?php echo $categorie['id_categorie']; ?>">
+                                            <?php echo htmlspecialchars($categorie['nom_categorie']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                                 <div class="mt-4 flex justify-between">
                                     <button type="button" 
                                             onclick="document.getElementById('addModal').classList.add('hidden')"
@@ -134,22 +142,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2 text-left">ID</th>
-                                <th class="px-4 py-2 text-left">Nom de la catégorie</th>
+                                <th class="px-4 py-2 text-left">Nom de la sous-catégorie</th>
+                                <th class="px-4 py-2 text-left">Catégorie parente</th>
                                 <th class="px-4 py-2 text-left">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($categories as $categorie): ?>
+                            <?php foreach ($souscategories as $souscat): ?>
                             <tr class="border-b hover:bg-gray-50">
-                                <td class="px-4 py-2"><?php echo htmlspecialchars($categorie['id_categorie']); ?></td>
-                                <td class="px-4 py-2"><?php echo htmlspecialchars($categorie['nom_categorie']); ?></td>
+                                <td class="px-4 py-2"><?php echo htmlspecialchars($souscat['id_sous_categorie']); ?></td>
+                                <td class="px-4 py-2"><?php echo htmlspecialchars($souscat['nom_sous_categorie']); ?></td>
+                                <td class="px-4 py-2"><?php echo htmlspecialchars($souscat['nom_categorie']); ?></td>
                                 <td class="px-4 py-2">
-                                    <a href="modifier_categorie.php?id=<?php echo $categorie['id_categorie']; ?>" 
+                                    <a href="modifier_sous_categorie.php?id=<?php echo $souscat['id_sous_categorie']; ?>" 
                                        class="text-blue-500 hover:underline mr-2">
                                         <i class="fas fa-edit"></i> Modifier
                                     </a>
-                                    <a href="supprimer_categorie.php?id=<?php echo $categorie['id_categorie']; ?>" 
-                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')"
+                                    <a href="supprimer_sous_categorie.php?id=<?php echo $souscat['id_sous_categorie']; ?>" 
+                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette sous-catégorie ?')"
                                        class="text-red-500 hover:underline">
                                         <i class="fas fa-trash"></i> Supprimer
                                     </a>

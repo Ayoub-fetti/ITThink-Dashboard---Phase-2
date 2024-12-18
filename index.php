@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['password'] = "Le mot de passe est requis";
     }
 
-    // Vérification dans la base de données
+    // Verification dans la base de données
     if (empty($errors)) {
         $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = ?");
         $stmt->execute([$email]);

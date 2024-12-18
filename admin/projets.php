@@ -28,10 +28,16 @@ $username = $_SESSION['username'];
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-100">
-    <div class="flex h-screen">
+     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="bg-gray-900 text-white w-64 p-4 flex flex-col">
+            <div class="bg-gray-900 text-white w-64 p-4 flex flex-col">
             <div class="flex items-center mb-8">
+            <span class="text-green-500 text-2xl font-bold">
+             Admin
+            </span>
+            <span class="ml-2 text-xl">
+            DASHBOARD
+            </span>
             </div>
             <div class="flex items-center mb-8">
                 <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center">
@@ -39,7 +45,6 @@ $username = $_SESSION['username'];
                 </div>
                 <span class="ml-4">Admin</span>
             </div>
-            <nav class="flex-1">
                 <ul>
                     <li class="mb-4">
                         <a href="admin_dashboard.php" class="flex items-center hover:text-gray-400 text-white">
@@ -52,19 +57,23 @@ $username = $_SESSION['username'];
                         </a>
                     </li>
                     <li class="mb-4">
-                        <a href="categories.php" class="flex items-center  hover:text-gray-400 text-white">
+                        <a href="categories.php" class="flex items-center hover:text-gray-400 text-white">
                             <i class="fas fa-list mr-2"></i>Catégories
                         </a>
                     </li>
                     <li class="mb-4">
-                        <a href="../logout.php" class="flex items-center text-red-500 hover:text-white">
+                        <a href="sous_categories.php" class="flex items-center hover:text-gray-400 text-white">
+                            <i class="fas fa-layer-group mr-2"></i>Sous-Catégories
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="../logout.php" class="flex items-center hover:text-white text-red-500">
                             <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
                         </a>
                     </li>
                 </ul>
             </nav>
         </div>
-
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <div class="bg-white rounded-lg shadow-lg p-6">
@@ -110,7 +119,7 @@ $username = $_SESSION['username'];
                                            class="text-blue-500 hover:underline mr-2">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="supprimer_projet.php?id=<?php echo $projet['id_projet']; ?>" 
+                                        <a href="_projet.php?id=<?php echo $projet['id_projet']; ?>" 
                                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')"
                                            class="text-red-500 hover:underline">
                                             <i class="fas fa-trash"></i>

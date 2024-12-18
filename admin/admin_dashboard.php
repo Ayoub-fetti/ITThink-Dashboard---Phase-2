@@ -66,7 +66,6 @@ $username = $_SESSION['username'];
      <ul>
       <li class="mb-4">
        <a class="flex items-center  hover:text-gray-400 text-white" href="projets.php">
-       <!-- <i class="fas fa-project-diagram mr-2"> -->
        <i class="fas fa-cogs mr-2">
         </i>Projets</a></li>
      </ul>
@@ -78,9 +77,8 @@ $username = $_SESSION['username'];
      </ul>
      <ul>
       <li class="mb-4">
-       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
-       <!-- <i class="fas fa-list mr-2"></i> -->
-       <!-- <i class="fas fa-ellipsis-h mr-2"></i> -->
+       <a class="flex items-center  hover:text-gray-400 text-white" href="sous_categories.php">
+
        <i class="fas fa-layer-group mr-2"></i>
         </i>Sous-Categories</a></li>
      </ul>
