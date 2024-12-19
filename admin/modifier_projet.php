@@ -15,7 +15,7 @@ $success = '';
 $categories = $pdo->query("SELECT * FROM categories")->fetchAll();
 $souscategories = $pdo->query("SELECT * FROM souscategorie")->fetchAll();
 
-// Recupérer le projet
+// Recuperer le projet
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $stmt = $pdo->prepare("SELECT * FROM projets WHERE id_projet = ?");

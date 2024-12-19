@@ -2,7 +2,7 @@
 require_once '../config.php';
 session_start();
 
-// check si l'utilisateur est admin
+// check si user est admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../index.php");
     exit();
@@ -77,6 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <a href="sous_categories.php" class="flex items-center hover:text-gray-400 text-white">
                             <i class="fas fa-layer-group mr-2"></i>Sous-Catégories
                         </a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="freelances.php" class="flex items-center hover:text-gray-400 text-white">
+                        <i class="fas fa-id-card mr-2"></i>Freelances
+                     </a>
                     </li>
                     <li class="mb-4">
                         <a href="../logout.php" class="flex items-center hover:text-white text-red-500">

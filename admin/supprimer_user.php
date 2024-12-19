@@ -2,7 +2,7 @@
 require_once '../config.php';
 session_start();
 
-// checker  l'utilisateur est admin
+// checke admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: index.php");
     exit();

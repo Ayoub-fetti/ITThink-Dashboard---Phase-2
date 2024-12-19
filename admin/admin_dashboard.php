@@ -85,7 +85,7 @@ $username = $_SESSION['username'];
      
      <ul>
       <li class="mb-4">
-       <a class="flex items-center  hover:text-gray-400 text-white" href="#">
+       <a class="flex items-center  hover:text-gray-400 text-white" href="freelances.php">
        <i class="fas fa-id-card mr-2">
         </i>Freelances</a></li>
      </ul>
@@ -109,11 +109,6 @@ $username = $_SESSION['username'];
    <!-- Main Content -->
    <div class="flex-1 p-6">
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-     <input class="p-2 rounded border border-gray-300" placeholder="Search" type="text"/>
-     <div class="flex items-center">
-     </div>
-    </div>
     <!-- Dashboard Content -->
     <div>
      <h1 class="text-2xl font-bold mb-4">

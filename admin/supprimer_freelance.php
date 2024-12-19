@@ -12,13 +12,16 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     
     try {
-        $stmt = $pdo->prepare("DELETE FROM projets WHERE id_projet = ?");
+        $stmt = $pdo->prepare("DELETE FROM freelances WHERE id_freelance = ?");
         $stmt->execute([$id]);
         
-        header("Location: projets.php?message=Projet supprimé avec succès");
+        header("Location: freelances.php?success=1");
         exit();
     } catch(PDOException $e) {
-        header("Location: projets.php?error=Erreur lors de la suppression");
+        header("Location: freelances.php?error=delete_failed");
         exit();
     }
-} 
+}
+
+header("Location: freelances.php");
+exit();

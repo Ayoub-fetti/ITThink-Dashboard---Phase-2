@@ -2,13 +2,13 @@
 require_once '../config.php';
 session_start();
 
-// checker l'utilisateur est admin
+// checker user est admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: index.php");
     exit();
 }
 
-// Recuperer tous les projets avec les informations associées
+// Recuperer tous les projets avec les informations forein key
 $stmt = $pdo->query(" SELECT p.id_projet, p.titre_projet, p.description, c.nom_categorie, sc.nom_sous_categorie, u.nom_utilisateur as createur FROM projets p
     LEFT JOIN categories c ON p.id_categorie = c.id_categorie
     LEFT JOIN souscategorie sc ON p.id_sous_categorie = sc.id_sous_categorie
@@ -65,6 +65,11 @@ $username = $_SESSION['username'];
                         <a href="sous_categories.php" class="flex items-center hover:text-gray-400 text-white">
                             <i class="fas fa-layer-group mr-2"></i>Sous-Catégories
                         </a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="freelances.php" class="flex items-center hover:text-gray-400 text-white">
+                        <i class="fas fa-id-card mr-2"></i>Freelances
+                     </a>
                     </li>
                     <li class="mb-4">
                         <a href="../logout.php" class="flex items-center hover:text-white text-red-500">

@@ -2,13 +2,13 @@
 require_once '../config.php';
 session_start();
 
-// check si l'utilisateur est admin
+// check si user est admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../index.php");
     exit();
 }
 
-// RecupErer toutes les sous-categories avec leurs categories associees
+// Recuperer toutes les sous-categories avec leurs categories forein key
 $stmt = $pdo->query("
     SELECT sc.*, c.nom_categorie 
     FROM souscategorie sc 
@@ -16,11 +16,11 @@ $stmt = $pdo->query("
 ");
 $souscategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupérer toutes les catégories pour le formulaire d'ajout
+// recuperer toutes les cat pour le formulaire d'ajout
 $stmt = $pdo->query("SELECT * FROM categories");
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Traitement de l'ajout d'une sous-catégorie
+// Traitement de l'ajout d'une sous-categorie
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom_sous_categorie = trim($_POST['nom_sous_categorie']);
     $id_categorie = $_POST['id_categorie'];
@@ -50,13 +50,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="bg-gray-900 text-white w-64 p-4 flex flex-col">
-            <!-- ... Copier le même sidebar que dans les autres pages admin ... -->
+            <div class="bg-gray-900 text-white w-64 p-4 flex flex-col">
             <div class="flex items-center mb-8">
-                <span class="text-green-500 text-2xl font-bold">Admin</span>
-                <span class="ml-2 text-xl">DASHBOARD</span>
+            <span class="text-green-500 text-2xl font-bold">
+             Admin
+            </span>
+            <span class="ml-2 text-xl">
+            DASHBOARD
+            </span>
             </div>
-            <nav>
+            <div class="flex items-center mb-8">
+                <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center">
+                    <span class="text-2xl">A</span>
+                </div>
+                <span class="ml-4">Admin</span>
+            </div>
                 <ul>
                     <li class="mb-4">
                         <a href="admin_dashboard.php" class="flex items-center hover:text-gray-400 text-white">
@@ -79,7 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </li>
                     <li class="mb-4">
-                        <a href="../logout.php" class="flex items-center text-red-500 hover:text-white">
+                        <a href="freelances.php" class="flex items-center hover:text-gray-400 text-white">
+                        <i class="fas fa-id-card mr-2"></i>Freelances
+                     </a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="../logout.php" class="flex items-center hover:text-white text-red-500">
                             <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
                         </a>
                     </li>
