@@ -91,7 +91,7 @@ $username = $_SESSION['username'];
      </ul>
      <ul>
       <li class="mb-4">
-       <a class="flex items-center hover:text-gray-400 text-white" href="#">
+       <a class="flex items-center hover:text-gray-400 text-white" href="offres.php">
        <i class="fas fa-comment-dollar mr-2">
         </i>Offres</a></li>
      </ul>

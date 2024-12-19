@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 15, 2024 at 11:31 AM
+-- Generation Time: Dec 19, 2024 at 10:02 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -40,7 +40,8 @@ INSERT INTO `categories` (`id_categorie`, `nom_categorie`) VALUES
 (1, 'full_stack'),
 (3, 'cory_writing'),
 (4, 'transating'),
-(5, 'virtual_assistant');
+(5, 'virtual_assistant'),
+(8, 'data_entry');
 
 -- --------------------------------------------------------
 
@@ -55,6 +56,13 @@ CREATE TABLE `freelances` (
   `id_utilisateur` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `freelances`
+--
+
+INSERT INTO `freelances` (`id_freelance`, `nom_freelance`, `competences`, `id_utilisateur`) VALUES
+(4, 'ayoub', 'developement web', 8);
+
 -- --------------------------------------------------------
 
 --
@@ -66,8 +74,16 @@ CREATE TABLE `offres` (
   `montant` decimal(10,2) NOT NULL,
   `delai` int NOT NULL,
   `id_freelance` int DEFAULT NULL,
-  `id_projet` int DEFAULT NULL
+  `id_projet` int DEFAULT NULL,
+  `status` varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `offres`
+--
+
+INSERT INTO `offres` (`id_offre`, `montant`, `delai`, `id_freelance`, `id_projet`, `status`) VALUES
+(5, '120.00', 5, 4, 4, '');
 
 -- --------------------------------------------------------
 
@@ -83,6 +99,13 @@ CREATE TABLE `projets` (
   `id_sous_categorie` int DEFAULT NULL,
   `id_utilisateur` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `projets`
+--
+
+INSERT INTO `projets` (`id_projet`, `titre_projet`, `DESCRIPTION`, `id_categorie`, `id_sous_categorie`, `id_utilisateur`) VALUES
+(4, 'Application mobile', 'Une application mobile pour une agence de Marketing Digital', 1, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -108,7 +131,8 @@ INSERT INTO `souscategorie` (`id_sous_categorie`, `nom_sous_categorie`, `id_cate
 (6, 'back_office', 5),
 (7, 'front_office', 5),
 (8, 'direct-response', 3),
-(9, 'marketing', 3);
+(9, 'marketing', 3),
+(13, 'Pack_microsoft', 8);
 
 -- --------------------------------------------------------
 
@@ -130,7 +154,10 @@ CREATE TABLE `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id_utilisateur`, `nom_utilisateur`, `mot_de_passe`, `email`, `role`) VALUES
 (7, 'admin', '$2y$10$n8l3H2DRtAQgcZG6T5zGYemOWbUUKljW6/1vvrS5ef9/dfc49Ti1O', 'admin@admin.com', 'admin'),
-(8, 'ayoub', '$2y$10$JJPOpyfojdKLEnbSTAakOudMgn.0kyUkPoyUVYJquJcvGC/1Liu6q', 'ayoub@gmail.com', 'user');
+(8, 'ayoub', '$2y$10$JJPOpyfojdKLEnbSTAakOudMgn.0kyUkPoyUVYJquJcvGC/1Liu6q', 'ayoub@gmail.com', 'freelancer'),
+(9, 'jebbouri', '$2y$10$/HCGdv/zY/S2YFmYCJ.JXOHW0rmPSbrb62Dn6bv8H2gu1z.D4MF5C', 'jebbouri@gmail.com', 'user'),
+(10, 'oussama', '$2y$10$atyvS9XZoLSRodnIGqwBZ.Yd8DqHwtH1nxydGUhumhMX5u1NSLVRe', 'oussama@gmail.com', 'user'),
+(12, 'rashida', '$2y$10$F161Rmr4ogkWSq.wrAC46uUA7s5UumlV0o4kzJ8vKGzoUnRO3dxpi', 'rashida@gmail.com', 'user');
 
 --
 -- Indexes for dumped tables
@@ -187,37 +214,37 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id_categorie` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categorie` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `freelances`
 --
 ALTER TABLE `freelances`
-  MODIFY `id_freelance` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_freelance` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `offres`
 --
 ALTER TABLE `offres`
-  MODIFY `id_offre` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_offre` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `projets`
 --
 ALTER TABLE `projets`
-  MODIFY `id_projet` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_projet` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `souscategorie`
 --
 ALTER TABLE `souscategorie`
-  MODIFY `id_sous_categorie` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_sous_categorie` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id_utilisateur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_utilisateur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
