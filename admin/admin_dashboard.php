@@ -2,19 +2,19 @@
 require_once '../config.php';
 session_start();
 
-// le nombre d'utilisateur 
+// nombre d'utilisateur 
 $stmt = $pdo->query("SELECT COUNT(*) as total_utilisateurs FROM utilisateurs");
 $userCount = $stmt->fetch()['total_utilisateurs'];
 
-// le nombre des projects
+// nombre des projects
 $stmt = $pdo->query("SELECT COUNT(*) as total_projets FROM projets");
 $projetsCount = $stmt->fetch()['total_projets'];
 
-// le nombre des freelances 
+//  nombre des freelances 
 $stmt = $pdo->query("SELECT COUNT(*) as total_freelances FROM freelances");
 $freelancesCount = $stmt->fetch()['total_freelances'];
 
-// le nombre des offres 
+//  nombre des offres 
 $stmt = $pdo->query("SELECT COUNT(*) as total_offres FROM offres");
 $offresCount = $stmt->fetch()['total_offres'];
 
@@ -138,7 +138,6 @@ $username = $_SESSION['username'];
           <?php echo $projetsCount; ?>
          </h2>
          <p class="text-gray-500">
-         <i class="fas fa-project-diagram mr-2"></i>
          Projets
          </p>
         </div>

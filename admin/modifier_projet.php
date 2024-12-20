@@ -30,10 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = $_POST['description'];
     $categorie = $_POST['categorie'];
     $souscategorie = $_POST['souscategorie'];
+    $status = $_POST['status'];
 
     try {
-        $stmt = $pdo->prepare("UPDATE projets SET titre_projet = ?, description = ?, id_categorie = ?, id_sous_categorie = ? WHERE id_projet = ?");
-        $stmt->execute([$titre, $description, $categorie, $souscategorie, $id]);
+        $stmt = $pdo->prepare("UPDATE projets SET titre_projet = ?, description = ?, id_categorie = ?, id_sous_categorie = ?, status = ? WHERE id_projet = ?");
+        $stmt->execute([$titre, $description, $categorie, $souscategorie, $status, $id]);
         $success = "Projet mis à jour avec succès";
     } catch(PDOException $e) {
         $error = "Erreur lors de la mise à jour: " . $e->getMessage();
@@ -96,6 +97,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php echo htmlspecialchars($souscategorie['nom_sous_categorie']); ?>
                         </option>
                     <?php endforeach; ?>
+                </select>
+            </div>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Status</label>
+                <select name="status" class="w-full p-2 border rounded">
+                    <option value="en_cours" <?php echo $projet['status'] === 'en_cours' ? 'selected' : ''; ?>>En cours</option>
+                    <option value="termine" <?php echo $projet['status'] === 'termine' ? 'selected' : ''; ?>>Terminé</option>
+                    <option value="annule" <?php echo $projet['status'] === 'annule' ? 'selected' : ''; ?>>Annulé</option>
+                    <option value="en_pause" <?php echo $projet['status'] === 'en_pause' ? 'selected' : ''; ?>>En pause</option>
                 </select>
             </div>
             

@@ -68,6 +68,11 @@ $freelances = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </li>
                 <li class="mb-4">
+                        <a href="offres.php" class="flex items-center hover:text-gray-400 text-white">
+                        <i class="fas fa-comment-dollar mr-2"></i>Offres
+                     </a>
+                    </li>
+                <li class="mb-4">
                     <a href="../logout.php" class="flex items-center hover:text-white text-red-500">
                         <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
                     </a>

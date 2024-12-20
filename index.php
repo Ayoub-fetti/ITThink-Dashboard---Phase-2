@@ -27,13 +27,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $user['nom_utilisateur'];
             $_SESSION['role'] = $user['role'];
 
-            if ($user['role'] === 'admin') {
-                header("Location: admin/admin_dashboard.php");
-                exit();
-            } else {
-                header("Location: dashboard.php");
-                exit();
+            // Redirection en fonction du role
+            switch($user['role']) {
+                case 'admin':
+                    header("Location: admin/admin_dashboard.php");
+                    break;
+                case 'freelancer':
+                    header("Location: freelance/freelance_dashboard.php");
+                    break;
+                case 'user':
+                    header("Location: user/dashboard.php");
+                    break;
+                default:
+                    header("Location: user/dashboard.php");
             }
+            exit();
         } else {
             $errors['login'] = "Email ou mot de passe incorrect";
         }

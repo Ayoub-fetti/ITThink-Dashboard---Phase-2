@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 19, 2024 at 10:02 AM
+-- Generation Time: Dec 20, 2024 at 08:53 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -83,7 +83,7 @@ CREATE TABLE `offres` (
 --
 
 INSERT INTO `offres` (`id_offre`, `montant`, `delai`, `id_freelance`, `id_projet`, `status`) VALUES
-(5, '120.00', 5, 4, 4, '');
+(5, '120.00', 5, 4, 4, 'accepter');
 
 -- --------------------------------------------------------
 
@@ -97,15 +97,17 @@ CREATE TABLE `projets` (
   `DESCRIPTION` text,
   `id_categorie` int DEFAULT NULL,
   `id_sous_categorie` int DEFAULT NULL,
-  `id_utilisateur` int DEFAULT NULL
+  `id_utilisateur` int DEFAULT NULL,
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `projets`
 --
 
-INSERT INTO `projets` (`id_projet`, `titre_projet`, `DESCRIPTION`, `id_categorie`, `id_sous_categorie`, `id_utilisateur`) VALUES
-(4, 'Application mobile', 'Une application mobile pour une agence de Marketing Digital', 1, 1, 9);
+INSERT INTO `projets` (`id_projet`, `titre_projet`, `DESCRIPTION`, `id_categorie`, `id_sous_categorie`, `id_utilisateur`, `status`) VALUES
+(4, 'Application mobile', 'Une application mobile pour une agence de Marketing Digital', 1, 1, 9, ''),
+(6, 'Application Mobile', 'je veux un freelancer qui develope une application mobile pour un projet e-commerce', 1, 2, 10, '');
 
 -- --------------------------------------------------------
 
@@ -232,7 +234,7 @@ ALTER TABLE `offres`
 -- AUTO_INCREMENT for table `projets`
 --
 ALTER TABLE `projets`
-  MODIFY `id_projet` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_projet` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `souscategorie`

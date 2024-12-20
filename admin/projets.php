@@ -2,20 +2,55 @@
 require_once '../config.php';
 session_start();
 
-// checker user est admin
+// check si user est admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
+// IMPORTANT: Placer le traitement du statut ici, avant tout HTML
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
+    $projet_id = $_POST['projet_id'];
+    $nouveau_statut = $_POST['status'];
+    
+    try {
+        $stmt = $pdo->prepare("UPDATE projets SET status = ? WHERE id_projet = ?");
+        $stmt->execute([$nouveau_statut, $projet_id]);
+        header("Location: projets.php?message=Status mis à jour");
+        exit();
+    } catch(PDOException $e) {
+        header("Location: projets.php?error=Erreur lors de la mise à jour");
+        exit();
+    }
+}
+
 // Recuperer tous les projets avec les informations forein key
-$stmt = $pdo->query(" SELECT p.id_projet, p.titre_projet, p.description, c.nom_categorie, sc.nom_sous_categorie, u.nom_utilisateur as createur FROM projets p
+$stmt = $pdo->query("
+    SELECT p.id_projet, p.titre_projet, p.description, p.status, c.nom_categorie, 
+           sc.nom_sous_categorie, u.nom_utilisateur as createur 
+    FROM projets p
     LEFT JOIN categories c ON p.id_categorie = c.id_categorie
     LEFT JOIN souscategorie sc ON p.id_sous_categorie = sc.id_sous_categorie
-    LEFT JOIN utilisateurs u ON p.id_utilisateur = u.id_utilisateur ");
+    LEFT JOIN utilisateurs u ON p.id_utilisateur = u.id_utilisateur
+");
 $projets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $username = $_SESSION['username'];
+
+function getStatusColor($status) {
+    switch($status) {
+        case 'en_cours':
+            return 'bg-blue-100 text-blue-800';
+        case 'termine':
+            return 'bg-green-100 text-green-800';
+        case 'annule':
+            return 'bg-red-100 text-red-800';
+        case 'en_pause':
+            return 'bg-yellow-100 text-yellow-800';
+        default:
+            return 'bg-gray-100 text-gray-800';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +107,11 @@ $username = $_SESSION['username'];
                      </a>
                     </li>
                     <li class="mb-4">
+                        <a href="offres.php" class="flex items-center hover:text-gray-400 text-white">
+                        <i class="fas fa-comment-dollar mr-2"></i>Offres
+                     </a>
+                    </li>
+                    <li class="mb-4">
                         <a href="../logout.php" class="flex items-center hover:text-white text-red-500">
                             <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
                         </a>
@@ -102,6 +142,7 @@ $username = $_SESSION['username'];
                                 <th class="px-4 py-2 text-left">Catégorie</th>
                                 <th class="px-4 py-2 text-left">Sous-catégorie</th>
                                 <th class="px-4 py-2 text-left">Créateur</th>
+                                <th class="px-4 py-2 text-left">Status</th>
                                 <th class="px-4 py-2 text-left">Actions</th>
                             </tr>
                         </thead>
@@ -119,6 +160,28 @@ $username = $_SESSION['username'];
                                     <td class="px-4 py-2"><?php echo htmlspecialchars($projet['nom_categorie']); ?></td>
                                     <td class="px-4 py-2"><?php echo htmlspecialchars($projet['nom_sous_categorie']); ?></td>
                                     <td class="px-4 py-2"><?php echo htmlspecialchars($projet['createur']); ?></td>
+                                    <td class="px-4 py-2">
+                                        <form method="POST" class="inline">
+                                            <input type="hidden" name="projet_id" value="<?php echo $projet['id_projet']; ?>">
+                                            <input type="hidden" name="update_status" value="1">
+                                            <select name="status" onchange="this.form.submit()" 
+                                                    class="border rounded px-2 py-1 text-sm 
+                                                    <?php echo getStatusColor($projet['status']); ?>">
+                                                <option value="en_cours" <?php echo $projet['status'] === 'en_cours' ? 'selected' : ''; ?>>
+                                                    En cours
+                                                </option>
+                                                <option value="termine" <?php echo $projet['status'] === 'termine' ? 'selected' : ''; ?>>
+                                                    Terminé
+                                                </option>
+                                                <option value="annule" <?php echo $projet['status'] === 'annule' ? 'selected' : ''; ?>>
+                                                    Annulé
+                                                </option>
+                                                <option value="en_pause" <?php echo $projet['status'] === 'en_pause' ? 'selected' : ''; ?>>
+                                                    En pause
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </td>
                                     <td class="px-4 py-2">
                                         <a href="modifier_projet.php?id=<?php echo $projet['id_projet']; ?>" 
                                            class="text-blue-500 hover:underline mr-2">
