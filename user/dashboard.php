@@ -22,13 +22,13 @@ if (isset($_POST['categorie'])) {
 // Traitement du formulaire de creation de projet
 if (isset($_POST['submit_project'])) {
     $titre = trim($_POST['titre_projet']);
-    $description = trim($_POST['DESCRIPTION']);
+    $description = trim($_POST['description']);
     $categorie = $_POST['categorie'];
     $sous_categorie = $_POST['sous_categorie'];
     $user_id = $_SESSION['user_id'];
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO projets (titre_projet, DESCRRIPTION, id_categorie, id_sous_categorie, id_utilisateur) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO projets (titre_projet, description, id_categorie, id_sous_categorie, id_utilisateur) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$titre, $description, $categorie, $sous_categorie, $user_id]);
         $success = "Projet créé avec succès!";
     } catch(PDOException $e) {
@@ -64,11 +64,17 @@ $username = $_SESSION['username'];
             </div>
 
             <nav class="flex-1">
-                <ul>
+                <ul> 
                 <li class="mb-4">
                 <a class="flex items-center  hover:text-green-500 text-white" href="mes_projets.php">
                 <i class="fas fa-cogs mr-2">
                     </i>Mes Projets</a></li>
+                </ul>
+                <ul> 
+                <li class="mb-4">
+                <a class="flex items-center  hover:text-green-500 text-white" href="mes_offres.php">
+                <i class="fas fa-comment-dollar mr-2">
+                    </i>Mes offres</a></li>
                 </ul>
 
                 <ul>
@@ -85,6 +91,21 @@ $username = $_SESSION['username'];
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto">
             <div class="container p-6">
+                <!-- Nouveau bloc pour le message de bienvenue -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h1 class="text-2xl font-bold mb-4">Bienvenue <?php echo htmlspecialchars($username); ?> !</h1>
+                    
+                    <div class="text-gray-600">
+                        <p class="mb-4">Pour créer votre projet, suivez ces étapes simples :</p>
+                        <ol class="list-decimal ml-6 space-y-2">
+                            <li>Sélectionnez une catégorie ci-dessous</li>
+                            <li>Choisissez une sous-catégorie correspondante</li>
+                            <li>Remplissez les détails de votre projet</li>
+                            <li>Soumettez votre projet et attendez les offres des freelances</li>
+                        </ol>
+                    </div>
+                </div>
+
                 <div class="bg-white rounded-lg shadow-md p-6 mb-6">
                     <?php if (isset($success)): ?>
                         <div class="bg-green-100 text-green-700 p-3 rounded mb-4">

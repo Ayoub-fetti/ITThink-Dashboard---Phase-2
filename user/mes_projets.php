@@ -75,6 +75,14 @@ $username = $_SESSION['username'];
                 <i class="fas fa-cogs mr-2">
                     </i>Mes Projets</a></li>
                 </ul>
+                <ul>
+                <li class="mb-4">
+                    <a href="mes_offres.php" class="flex items-center  hover:text-green-500  text-white">
+                        <i class="fas fa-comment-dollar mr-2"></i>
+                        <span>Mes Offres</span>
+                    </a>
+                </li>
+                </ul>
 
                 <ul>
                 <li class="mb-4">
@@ -84,12 +92,7 @@ $username = $_SESSION['username'];
                     </i>Déconnexion</a></li>
                 </ul>
             </nav>
-            <div class="mt-auto">
-                <a href="../logout.php" class="flex items-center space-x-2 p-2 hover:bg-gray-800 rounded text-red-500">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Déconnexion</span>
-                </a>
-            </div>
+
         </div>
 
         <!-- Main Content -->
@@ -107,24 +110,25 @@ $username = $_SESSION['username'];
                                     <th class="px-4 py-2 text-left">Catégorie</th>
                                     <th class="px-4 py-2 text-left">Sous-catégorie</th>
                                     <th class="px-4 py-2 text-left">Status</th>
+                                    <th class="px-4 py-2 text-left">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($projets as $projet): ?>
                                     <tr class="border-b hover:bg-gray-50">
-                                        <td class="px-4 py-2"><?php echo htmlspecialchars($projet['titre_projet']); ?></td>
+                                        <td class="px-4 py-2"><?php echo htmlspecialchars($projet['titre_projet'] ?? ''); ?></td>
                                         <td class="px-4 py-2">
                                             <?php 
-                                            $description = htmlspecialchars($projet['DESCRIPTION']);
+                                            $description = htmlspecialchars($projet['DESCRIPTION'] ?? '');
                                             echo strlen($description) > 50 ? substr($description, 0, 50) . '...' : $description;
                                             ?>
                                         </td>
-                                        <td class="px-4 py-2"><?php echo htmlspecialchars($projet['nom_categorie']); ?></td>
-                                        <td class="px-4 py-2"><?php echo htmlspecialchars($projet['nom_sous_categorie']); ?></td>
+                                        <td class="px-4 py-2"><?php echo htmlspecialchars($projet['nom_categorie'] ?? ''); ?></td>
+                                        <td class="px-4 py-2"><?php echo htmlspecialchars($projet['nom_sous_categorie'] ?? ''); ?></td>
                                         <td class="px-4 py-2">
-                                            <span class="px-2 py-1 rounded text-sm <?php echo getStatusColor($projet['status']); ?>">
+                                            <span class="px-2 py-1 rounded text-sm <?php echo getStatusColor($projet['status'] ?? ''); ?>">
                                                 <?php 
-                                                switch($projet['status']) {
+                                                switch($projet['status'] ?? '') {
                                                     case 'en_cours':
                                                         echo 'En cours';
                                                         break;
@@ -142,6 +146,17 @@ $username = $_SESSION['username'];
                                                 }
                                                 ?>
                                             </span>
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            <a href="modifier_projet.php?id=<?php echo $projet['id_projet']; ?>" 
+                                               class="text-blue-500 hover:underline mr-2">
+                                                <i class="fas fa-edit"></i> Modifier
+                                            </a>
+                                            <a href="supprimer_projet.php?id=<?php echo $projet['id_projet']; ?>" 
+                                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')"
+                                               class="text-red-500 hover:underline">
+                                                <i class="fas fa-trash"></i> Supprimer
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
